@@ -7,6 +7,9 @@ const Auth = (req,res,next)=>{
         token = token.split(" ")[1]
         jwt.verify(token, "bharat", function (err, decoded) {
             if (decoded) {
+                req.body.authorID = decoded.authorID
+                req.body.authorName = decoded.authorName
+
                 next()
             } else {
                 res.send("invalid token")

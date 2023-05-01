@@ -5,6 +5,7 @@ const userRoute = require("./route/user.route")
 require("dotenv").config()
 const jwt = require("jsonwebtoken")
 const Auth = require("./middleware/auth.middleware")
+const noteRouter = require("./route/note.route")
 
 const app = express()
 
@@ -16,11 +17,7 @@ app.use("/user", userRoute)
 
 app.use(Auth)
 
-app.get("/movie", (req, res) => {
-    res.send("movie")
-
-
-})
+app.use("/note", noteRouter)
 
 
 app.listen(process.env.port, async () => {
