@@ -3,17 +3,27 @@ const cors = require("cors")
 const connection = require("./db")
 const userRoute = require("./route/user.route")
 require("dotenv").config()
+const jwt = require("jsonwebtoken")
+const Auth = require("./middleware/auth.middleware")
 
 const app = express()
 
 app.use(express.json())
-app.get("/",(req,res)=>{
-    res.send({msg:"welcome"})
+app.get("/", (req, res) => {
+    res.send({ msg: "welcome" })
 })
 app.use("/user", userRoute)
 
+app.use(Auth)
 
-app.listen(process.env.port , async()=>{
+app.get("/movie", (req, res) => {
+    res.send("movie")
+
+
+})
+
+
+app.listen(process.env.port, async () => {
     try {
         await connection
         console.log("connect to the db")
